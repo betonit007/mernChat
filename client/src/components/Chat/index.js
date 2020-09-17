@@ -1,9 +1,11 @@
+import React from 'react'
 import { Avatar, IconButton } from '@material-ui/core'
 import SearchOutlined from '@material-ui/icons/SearchOutlined';
 import AttachFile from '@material-ui/icons/AttachFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ChatBox from './ChatBox'
+import Footer from './Footer'
 
-import React from 'react'
 import './styles.css'
 
 const Chat = () => {
@@ -29,14 +31,11 @@ const Chat = () => {
                </div>
            </div>
             <div className="chat__body">
-                <p>
-                    <span className="chat__name">Tim</span>
-                    This is a message
-                    <span className="chat__timestamp">
-                        {new Date().toUTCString()}
-                    </span>
-                </p>
+                <ChatBox />
+                <ChatBox reciever={true}/>
+                <ChatBox />
             </div>
+            <Footer />
         </div>
     )
 }
