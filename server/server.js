@@ -9,6 +9,11 @@ const app = express()
 
 // middleware
 app.use(express.json({ extended: false })); // we can now accept info from req.body
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Headers", "*")
+    next()
+})
 
 //connect to DB
 connectDB()

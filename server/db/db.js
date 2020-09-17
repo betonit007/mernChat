@@ -36,7 +36,7 @@ export const connectDB = async () => {
                       name: messageDetails.name,
                       message: messageDetails.message
                   })
-                }
+                } else { console.log("Error triggering pusher")}
             })
         })
 
