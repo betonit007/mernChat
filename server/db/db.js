@@ -33,7 +33,7 @@ export const connectDB = async () => {
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                   const messageDetails = change.fullDocument;
                   pusher.trigger("messages", "inserted", {
-                      name: messageDetails.user,
+                      name: messageDetails.name,
                       message: messageDetails.message
                   })
                 }
