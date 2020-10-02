@@ -4,6 +4,7 @@ const mernChatSchema = mongoose.Schema({
     message: String,
     name: String,
     timestamp: String,
+    roomId: String,
     received: {
         type: Boolean,
         default: false

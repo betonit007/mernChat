@@ -24,41 +24,29 @@ export const connectDB = async () => {
 
         db.once("open", () => {
             console.log("MONGODB connected")
-            const chatCollection = db.collection("mernchats");
+            const chatCollection = db.collection("mernchats"); //"mernchats" is the name of the model we created in folder (./models/dbMessages.js)
             const changeStream = chatCollection.watch()
 
             changeStream.on("change", (change) => {
-                console.log('A CHANGE OCCURRED', change)
-
+                console.log(change)
                 if (change.operationType === 'insert') { // a field in change object (passed in)
-                  const messageDetails = change.fullDocument;
-                  pusher.trigger("messages", "inserted", {
-                      name: messageDetails.name,
-                      message: messageDetails.message
-                  })
-                } else { console.log("Error triggering pusher")}
+                    const messageDetails = change.fullDocument;
+                    
+                    pusher.trigger("messages", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
+                        name: messageDetails.name,
+                        message: messageDetails.message,
+                        timestamp: messageDetails.timestamp,
+                        received: messageDetails.received,
+                        roomId: messageDetails.roomId
+                    })
+                } else { console.log("Error triggering pusher") }
             })
         })
 
     } catch (error) {
-        console.error("ERROR connecting MONGODB")
-        console.error(error)
+        console.error("ERROR connecting MONGODB", error)
     }
 
-
-    // mongoose.connect(process.env.MONGO_URI, {
-    //     useNewUrlParser: true,
-    //     useCreateIndex: true,
-    //     useFindAndModify: true
-    // })
-    // .then(() => {
-    //     console.log('Car Database Connected!')
-
-    // })
-    // .catch(err => {
-    //     console.log(err.message);
-    //     process.exit(1);
-    // })
 }
 
 

@@ -1,36 +1,60 @@
 import express from 'express'
 const router = express.Router();
 import MernChat from '../models/dbMessages.js'
+import Room from '../models/Room.js'
 
-router.get("/", async (req, res) => {
+router.get("/populate/:id", async (req, res) => {
+    console.log(req.params.id)
+    Room.find({_id:req.params.id})
+        .populate("chats")
+        .then(roomWithChats => {
+            res.json(roomWithChats);
+        })
+        .catch(err => {
+            res.json(err);
+        });
+});
+
+router.get("/rooms", async (req, res) => {
     try {
-        const chats = await MernChat.find({})
-        res.json(chats)
-    } catch (err) {
-        res.json(err)
-    }
-})
-
-router.post('/new', async (req, res) => {
-
-    try {
-        const newChat = await MernChat.create(req.body)
-        res.status(200).send(newChat)
-
+        const rooms = await Room.find({})
+        res.json(rooms)
     } catch (err) {
         res.json(err)
     }
 })
 
 router.get("/:id", async (req, res) => {
-  try {
-      const singleChat = await MernChat.find({
-          _id: req.params.id
-      })
-      res.send(singleChat)
-  } catch (err) {
-      res.send(err)
-  }
+    try {
+        const singleChat = await MernChat.find({
+            _id: req.params.id
+        })
+        res.send(singleChat)
+    } catch (err) {
+        res.send(err)
+    }
 })
+
+router.post("/new", async (req, res) => {
+   
+    try {
+        const { _id } = await MernChat.create(req.body)
+        console.log(_id)
+        const response = await Room.findOneAndUpdate({ _id: req.body.roomId }, { $push: { chats: _id } })
+
+        console.log(response)
+        res.json(response)
+        // MernChat.create({ message: "First one using populate (mongoose)", name: "Tim", timestamp: "hi" })
+        // .then(({ _id }) => Room.findOneAndUpdate({ _id: "5f74e274457976435871096c" }, { $push: { chats: _id } }, { new: true }))
+        // .then(resp => console.log(resp))
+
+    } catch (error) {
+        console.log(error)
+        res.json("BIG ERROR", error)
+
+    }
+})
+
+
 
 export default router

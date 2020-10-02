@@ -13,6 +13,7 @@ app.use(cors())
 //connect to DB
 connectDB()
 
+
 //api routes
 app.use('/api/chats', chatRouter)
 
