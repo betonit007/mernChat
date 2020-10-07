@@ -1,10 +1,17 @@
 import mongoose from 'mongoose'
 
-const mernChatSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+
+const mernChatSchema = new Schema({
     message: String,
     name: String,
-    timestamp: String,
-    roomId: String,
+    timestamp: {
+        type: Date,
+        default: Date.now
+    },
+    userId: Schema.Types.ObjectId,
+    roomId: Schema.Types.ObjectId,
     received: {
         type: Boolean,
         default: false

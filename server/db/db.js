@@ -25,13 +25,13 @@ export const connectDB = async () => {
         db.once("open", () => {
             console.log("MONGODB connected")
             const chatCollection = db.collection("mernchats"); //"mernchats" is the name of the model we created in folder (./models/dbMessages.js)
-            const changeStream = chatCollection.watch()
+            const changeChats = chatCollection.watch()
 
-            changeStream.on("change", (change) => {
+            changeChats.on("change", (change) => {
                 console.log(change)
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const messageDetails = change.fullDocument;
-                    
+                    console.log('send message', messageDetails)
                     pusher.trigger("messages", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
                         name: messageDetails.name,
                         message: messageDetails.message,
@@ -39,7 +39,24 @@ export const connectDB = async () => {
                         received: messageDetails.received,
                         roomId: messageDetails.roomId
                     })
-                } else { console.log("Error triggering pusher") }
+                } else { console.log("Error triggering pusher in messages") }
+            })
+
+            const roomCollection = db.collection("rooms"); //"mernrooms" is the name of the model we created in folder (./models/dbMessages.js)
+            const changeRooms = roomCollection.watch()
+
+            changeRooms.on("change", (change) => {
+                
+                if (change.operationType === 'insert') { // a field in change object (passed in)
+                    const messageDetails = change.fullDocument;
+
+                    console.log(messageDetails)
+                    pusher.trigger("rooms", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
+                        name: messageDetails.name,
+                        //creator: messageDetails.creator,
+                        _id: messageDetails._id
+                    })
+                } else { console.log("Error triggering pusher in rooms") }
             })
         })
 

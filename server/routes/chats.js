@@ -17,8 +17,17 @@ router.get("/populate/:id", async (req, res) => {
 
 router.get("/rooms", async (req, res) => {
     try {
-        const rooms = await Room.find({})
+        const rooms = await Room.find({}).sort({date: -1})
         res.json(rooms)
+    } catch (err) {
+        res.json(err)
+    }
+})
+
+router.post("/newroom", async (req, res) => {
+    try {
+        const newRoom = await Room.create(req.body)
+        res.json(newRoom)
     } catch (err) {
         res.json(err)
     }
@@ -36,11 +45,20 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/new", async (req, res) => {
-   
+
+   const { message, name, roomId, userId } = req.body
+
     try {
-        const { _id } = await MernChat.create(req.body)
-        console.log(_id)
-        const response = await Room.findOneAndUpdate({ _id: req.body.roomId }, { $push: { chats: _id } })
+        const { _id } = await MernChat.create(
+            {
+                message,
+                name,
+                userId,
+                roomId: roomId.id
+            }
+        )
+        
+        const response = await Room.findOneAndUpdate({ _id: roomId.id }, { $push: { chats: _id } })
 
         console.log(response)
         res.json(response)
