@@ -1,12 +1,13 @@
 import React from 'react'
 
-const ChatBox = ({ reciever=false }) => {
+const ChatBox = ({chatInfo: { received, message, name, timestamp }}) => {
     return (
-        <p className={`chat__message ${reciever && "chat__reciever"}`}>
-            <span className="chat__name">Tim</span>
-                    This is a message
+        <p className={`chat__message ${received && "chat__reciever"}`}>
+            <span className="chat__name">{name}</span>
+                    {message}
             <span className="chat__timestamp">
-                {new Date().toUTCString()}
+                {/* {new Date().toUTCString()} */}
+                {timestamp}
             </span>
         </p>
 

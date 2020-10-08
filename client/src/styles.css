@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap');
-
 * {
     margin: 0;
     font-family: 'Roboto', sans-serif;
@@ -13,10 +12,78 @@
 }
 
 .app-body {
+    position: relative;
     display: flex;
     background: #ededed;
     margin-top: -50px;
     height: 90vh;
     width: 90vw;
+    border-radius: 5px;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
-} 
+}
+
+.modal {
+    position: absolute;
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(104, 99, 99, 0.712);
+    animation: transModal .3s;
+}
+
+.modal__body {
+    border-radius: 5px;
+    min-height: 50%;
+    width: 50%;
+    background-color: #fff;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+}
+
+.loginRegister {
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(171, 220, 226, 0.75);
+    border-radius: 5px;
+}
+
+.loginRegister__form {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.loginRegister__form input {
+    border: none;
+    outline-width: 0;
+    padding: 10px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.loginRegister__form input[type="submit"] {
+    cursor: pointer;
+    background-color: rgb(170, 169, 169);
+    color: #fff;
+}
+
+.loginRegister p {
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+
+@keyframes transModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1
+    }
+}
