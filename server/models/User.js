@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose'
 
 const UserSchema = mongoose.Schema({
     name: {
@@ -12,7 +12,9 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
+        minlength: 6,
+        
     },
     role: {
         type: String,
@@ -24,11 +26,14 @@ const UserSchema = mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    ///ref/link to a user saved car inventory
-    savedCars: [{
+    photoUrl: {
+        type: String,
+        default: null
+    },
+    chats: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "MernChat"
     }]
 });
 
-module.exports = mongoose.model('user', UserSchema);
+export default  mongoose.model('User', UserSchema);

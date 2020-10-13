@@ -8,12 +8,12 @@ import LoginRegister from './components/LoginRegister'
 import Pusher from 'pusher-js'
 
 const App = () => {
-
+   
     const { addMessage, currentRoom, addRoom } = useContext(ChatContext)
-    const { isAuthenticated } = useContext(AuthContext)
-    console.log(isAuthenticated)
+    const { isAuthenticated, loadUser } = useContext(AuthContext)
+
     useEffect(() => {
-        Pusher.logToConsole = true;
+        Pusher.logToConsole = false;
 
         const pusher = new Pusher(process.env.REACT_APP_PUSHER, {
           cluster: 'mt1'
@@ -39,6 +39,10 @@ const App = () => {
             channel2.unsubscribe();
         }
     }, [currentRoom])
+
+    useEffect(() => {
+      loadUser()
+    }, [isAuthenticated])
 
     return (
         <div className='app'>

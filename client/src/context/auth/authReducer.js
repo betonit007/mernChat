@@ -18,7 +18,6 @@ export default (state, action) => {
                 isAuthenticated: true,
                 loading: false,
                 user: action.payload,
-                saved: action.payload.savedCars
             }
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:

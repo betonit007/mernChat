@@ -12,16 +12,25 @@ const RoomSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  // creator: {
-  //   type: Schema.Types.ObjectId,
-  //   required: true
-  // },
+  creatorInfo: {
+    name: {
+      type: String,
+      required: true
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true
+    },
+    photoUrl: String
+  },
   chats: [
     {
       type: Schema.Types.ObjectId,
       ref: "MernChat"
-    }
-  ]
+    },
+    
+  ],
+  lastUpdated: {type: Date, 'default': Date.now}
 });
 
 

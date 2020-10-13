@@ -3,11 +3,13 @@ import { CircularProgress, IconButton } from '@material-ui/core';
 import { SearchOutlined, AddCircleOutline } from "@material-ui/icons"
 import SidebarChat from './SidebarChat';
 import { ChatContext } from '../../../context/chat/chatContext'
+import { AuthContext } from '../../../context/auth/authContext'
 
 
 const SidebarRoomSearch = () => {
 
     const { getRooms, filteredRooms, allRooms, roomsLoading, getChats, dynamicFilter, sendRoom } = useContext(ChatContext)
+    const { user } = useContext(AuthContext)
     const [userInput, setUserInput] = useState("")
 
     useEffect(() => {
@@ -23,7 +25,7 @@ const SidebarRoomSearch = () => {
     const handleRoomAdd = e => {
         e.preventDefault()
         if (filteredRooms.length !== 0) return
-        sendRoom(userInput)
+        sendRoom({ userInput, user })
         setUserInput("")
     }
 
@@ -57,9 +59,11 @@ const SidebarRoomSearch = () => {
                 {filteredRooms ?
                     filteredRooms.map(room => <SidebarChat
                         key={room._id}
-                        name={room.name}
+                        creatorInfo={room.creatorInfo}
                         getChats={getChats}
                         id={room._id}
+                        lastUpdated={room.lastUpdated}
+                        name={room.name}
                     />
                     )
                     :

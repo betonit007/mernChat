@@ -18,7 +18,7 @@ const LoginRegister = () => {
     const handleSubmit = e => {
         e.preventDefault()
        if (!loginState) {
-         login(email, password)
+         login({email, password})
        } else {
            if (password !== confirmPassword) return
            register({name, email, password})

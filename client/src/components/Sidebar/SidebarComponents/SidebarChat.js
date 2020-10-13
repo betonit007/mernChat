@@ -1,15 +1,16 @@
 import React from 'react'
 import { Avatar } from '@material-ui/core'
+import { formatRelative } from "date-fns";
 
-const SidebarChat = ({ name, id, getChats }) => {
+const SidebarChat = ({ name, id, getChats, lastUpdated, creatorInfo }) => {
 
     return (
         <div className='sidebarChat' onClick={()=>getChats({ id, name })}>
-            <Avatar />
+            <Avatar src={creatorInfo.photoUrl && creatorInfo.photoUrl}/>
             <div className="sidebarChat__info">
  
                 <h2>{name}</h2>
-                <p>This is the last message</p>
+                    {lastUpdated && <small>{`Updated: ${formatRelative(new Date(lastUpdated), new Date())}`}</small>}
             </div>
             
         </div>

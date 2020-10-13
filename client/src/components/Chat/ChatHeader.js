@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Avatar, IconButton } from '@material-ui/core'
-import { SearchOutlined, SpaRounded } from '@material-ui/icons';
+import { SearchOutlined } from '@material-ui/icons';
 import AttachFile from '@material-ui/icons/AttachFile';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { ChatContext } from '../../context/chat/chatContext'
@@ -10,7 +10,13 @@ const ChatHeader = () => {
 
     const { currentRoom, currentRoomChats } = useContext(ChatContext)
 
-
+    const LastChatEllipsis = chatObj => {
+        const string = chatObj[chatObj.length - 1]?.message
+        if (!string) return
+        if (string.length > 25) return `${string.substring(0, 25)}...`
+        return string
+    }
+    
     return (
         <div className="chat__header">
             <Avatar />
@@ -18,7 +24,7 @@ const ChatHeader = () => {
                 {currentRoom?.name && (
                     <>
                         <h3>{currentRoom.name}</h3>
-                <p>{currentRoomChats[currentRoomChats.length -1]?.message}</p>
+                        <p>{currentRoomChats && LastChatEllipsis(currentRoomChats)}</p>
                     </>
                 )}
             </div>

@@ -45,9 +45,9 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/new", async (req, res) => {
-
+   
    const { message, name, roomId, userId } = req.body
-
+   
     try {
         const { _id } = await MernChat.create(
             {
@@ -57,10 +57,9 @@ router.post("/new", async (req, res) => {
                 roomId: roomId.id
             }
         )
-        
-        const response = await Room.findOneAndUpdate({ _id: roomId.id }, { $push: { chats: _id } })
+        //Push new room to rooms array and update lastUpdate with current time / date
+        const response = await Room.findOneAndUpdate({ _id: roomId.id }, { $set: { lastUpdated: Date.now()}, $push: { chats: _id } })
 
-        console.log(response)
         res.json(response)
         // MernChat.create({ message: "First one using populate (mongoose)", name: "Tim", timestamp: "hi" })
         // .then(({ _id }) => Room.findOneAndUpdate({ _id: "5f74e274457976435871096c" }, { $push: { chats: _id } }, { new: true }))

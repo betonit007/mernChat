@@ -55,28 +55,20 @@ const ChatState = props => {
         })
     }
 
-    const sendMessage = async (message) => {
-        
-        if (!state.currentRoom.id) return
-        console.log("send message")
-        try {
-            await axios.post(`/api/chats/new`, {
-                message: message,
-                name: "Timmay",
-                roomId: state.currentRoom,
-                userId: "5f7ca75da0a692399d12607e"
-            })
+    
+    const sendRoom = async roomInfo => {
 
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
-    const sendRoom = async room => {
+        const { userInput, user  } = roomInfo
 
         try {
 
-            const newRoom = { name: room }
+            const newRoom = { 
+                name: userInput, 
+                creatorInfo: { 
+                    name: user.name, 
+                    userId: user._id,
+                    photoUrl: user.photoUrl && user.photoUrl
+                } }
             let res = await axios.post('/api/chats/newroom', newRoom)
             dispatch({
                 type: INITIATE_ROOM,
@@ -96,9 +88,28 @@ const ChatState = props => {
         })
     }
 
+    const sendMessage = async (messageInfo) => {
+        
+        if (!state.currentRoom.id) return
+     
+        const { user: { name, _id }, message } = messageInfo
+        try {
+            await axios.post(`/api/chats/new`, {
+                message,
+                name,
+                roomId: state.currentRoom,
+                userId: _id
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     const addMessage = newChat => {
-        console.log(newChat)
-        if (!state.currentRoom || newChat.roomId !== state.currentRoom.id) return
+        if (!state.currentRoom) return
+        
         dispatch({
             type: ADD_CHAT,
             payload: newChat

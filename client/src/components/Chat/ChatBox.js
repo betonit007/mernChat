@@ -1,15 +1,19 @@
 import React from 'react'
+import { formatRelative } from "date-fns";
 
-const ChatBox = ({chatInfo: { received, message, name, timestamp }}) => {
+const ChatBox = ({ chatInfo: { message, name, timestamp, userId }, user }) => {
+
+    const userChat = userId === user._id
+
     return (
-        <p className={`chat__message ${received && "chat__reciever"}`}>
-            <span className="chat__name">{name}</span>
-                    {message}
-            <span className="chat__timestamp">
+        <div className={`chat__message ${userChat && "chat__reciever"}`}>
+            <span className="chat__name">{!userChat && name}</span>
+            <p>{message}</p>
+            <span className='chat__timestamp' style={userChat ? { right: 0 } : { left: 0 }}>
                 {/* {new Date().toUTCString()} */}
-                {timestamp}
+                {timestamp && formatRelative(new Date(timestamp), new Date())}
             </span>
-        </p>
+        </div>
 
     )
 }

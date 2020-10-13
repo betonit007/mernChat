@@ -1,13 +1,38 @@
 .sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex: 0.35;
+    z-index: 10;
+}
+
+.fadeIn {
+    animation: slide-in 0.3s linear 0.3s both;
+}
+
+.fadeOut {
+    animation: slide-out .3s linear .3s both;
+}
+
+.sidebar__toggle {
+  opacity: .50;
+  position: absolute !important;
+  background: rgba(128, 128, 128, 0.411) !important;
+  top: 45%;
+  right: -24px;
+}
+
+.sidebar__toggle:hover {
+    opacity: .8;
+    background: rgba(128, 128, 128, 0.61) !important;
 }
 
 .sidebar__header {
+    position: relative;
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    background: #ededed;
     border-right: 1px solid lightgray;
 }
 
@@ -24,20 +49,20 @@
 }
 
 .sidebar__search {
-  display: flex;
-  align-items: center;
-  background: #f6f6f6;
-  height: 39px;
-  padding: 10px;
+    display: flex;
+    align-items: center;
+    background: #f6f6f6;
+    height: 39px;
+    padding: 10px;
 }
 
 .sidebar__searchContainer {
-  display: flex;
-  align-items: center;
-  background-color: white;
-  width: 100%;
-  height: 35px;
-  border-radius: 20px;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
 }
 
 .sidebar__searchContainer .MuiSvgIcon-root {
@@ -56,12 +81,11 @@
     margin-left: 0;
 }
 
-
 .sidebar__chats {
-  flex: 1;
-  background-color: white;
-  overflow: scroll;
-  overflow-x: hidden;
+    flex: 1;
+    background-color: white;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .sidebar__spinner {
@@ -83,17 +107,64 @@
     background: #ebebeb;
 }
 
-
-.sidebarChat__info h2{
-  font-size: 16px;
-  margin-bottom: 8px;  
+.sidebarChat__info h2 {
+    font-size: 16px;
+    margin-bottom: 8px;
 }
 
 .sidebarChat__info {
     margin-left: 15px
 }
 
+.sidebarChat__last {
+    display: flex;
+}
+
 .sidebar__noRooms {
     padding: 5px;
     text-align: center;
+}
+
+/* @media only screen and (max-width: 960px) {
+    .sidebar {
+        animation: slide-out .3s linear .3s both;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    .sidebar {
+        animation: slide-in 0.3s linear 0.3s both;
+    }
+} */
+
+@keyframes slide-out {
+    0% {
+        transform: translateX(0);
+        position: relative;
+    }
+    10% {
+        position: absolute;
+        height: 100%;
+    }
+    100% {
+        transform: translateX(-100%);
+        position: absolute;
+        height: 100%;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translateX(-100%);
+        position: absolute;
+        height: 100%
+    }
+    90% {
+        position: absolute;
+        height: 100%;
+    }
+    100% {
+        transform: translateX(0);
+        position: relative;
+    }
 }

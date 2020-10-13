@@ -1,13 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
 import ChatIcon from '@material-ui/icons/Chat';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Avatar, IconButton } from '@material-ui/core';
+import { AuthContext } from '../../../context/auth/authContext'
 
 const SidebarHeader = () => {
+
+    const { user } = useContext(AuthContext)
+
     return (
         <div className="sidebar__header">
-            <Avatar src="https://theflydev.com/static/media/portrait.8cbe8126.jpg" />
+            <Avatar src={ user && user.photoUrl } />
+            {
+                <div className='sidebar__account'>
+
+            </div>
+}
             <div className="sidebar__headerRight">
                 <IconButton>
                     <DonutLargeIcon />

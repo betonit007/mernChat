@@ -4,6 +4,11 @@
     font-family: 'Roboto', sans-serif;
 }
 
+*::-webkit-scrollbar {
+    width: 0;
+    
+}
+
 .app {
     display: grid;
     place-items: center;
@@ -18,8 +23,10 @@
     margin-top: -50px;
     height: 90vh;
     width: 90vw;
+    max-width: 1200px;
     border-radius: 5px;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    overflow: hidden;
 }
 
 .modal {
@@ -36,26 +43,25 @@
 
 .modal__body {
     border-radius: 5px;
-    min-height: 50%;
     width: 50%;
     background-color: #fff;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
 
 .loginRegister {
-    min-height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background-color: rgba(171, 220, 226, 0.75);
     border-radius: 5px;
+    padding: 20px;
 }
 
 .loginRegister__form {
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 100%;
 }
 
 .loginRegister__form input {
@@ -77,7 +83,6 @@
     cursor: pointer;
     margin-top: 5px;
 }
-
 
 @keyframes transModal {
     from {

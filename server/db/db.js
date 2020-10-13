@@ -28,16 +28,17 @@ export const connectDB = async () => {
             const changeChats = chatCollection.watch()
 
             changeChats.on("change", (change) => {
-                console.log(change)
+                
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const messageDetails = change.fullDocument;
-                    console.log('send message', messageDetails)
+                    
                     pusher.trigger("messages", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
                         name: messageDetails.name,
                         message: messageDetails.message,
                         timestamp: messageDetails.timestamp,
                         received: messageDetails.received,
-                        roomId: messageDetails.roomId
+                        roomId: messageDetails.roomId,
+                        userId: messageDetails.userId
                     })
                 } else { console.log("Error triggering pusher in messages") }
             })
@@ -50,7 +51,7 @@ export const connectDB = async () => {
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const messageDetails = change.fullDocument;
 
-                    console.log(messageDetails)
+                    
                     pusher.trigger("rooms", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
                         name: messageDetails.name,
                         //creator: messageDetails.creator,
