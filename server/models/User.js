@@ -30,6 +30,9 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: null
     },
+    public_id: {     //public ID for photo (Cloudinary)
+        type: String
+    },
     chats: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "MernChat"

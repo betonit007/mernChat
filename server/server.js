@@ -8,9 +8,10 @@ const PORT = process.env.PORT || 5000
 const app = express()
 
 // middleware
+// we can now accept info from req.body and limit incoming file size to 5mb
+app.use(express.json({ extended: false, limit: '5mb' })); 
 app.use(cors())
 app.use(express.json({ extended: false })); // we can now accept info from req.body
-
 
 //connect to DB
 connectDB()
