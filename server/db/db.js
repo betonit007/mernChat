@@ -54,7 +54,7 @@ export const connectDB = async () => {
                     
                     pusher.trigger("rooms", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
                         name: messageDetails.name,
-                        //creator: messageDetails.creator,
+                        creatorInfo: messageDetails.creatorInfo,
                         _id: messageDetails._id
                     })
                 } else { console.log("Error triggering pusher in rooms") }
