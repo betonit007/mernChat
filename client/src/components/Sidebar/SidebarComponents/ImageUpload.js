@@ -4,18 +4,19 @@ import { LinearProgress } from '@material-ui/core/';
 import axios from '../../../axios'
 
 
-const ImageUpload = ({ user, token, updateUser, userMenu, toggleUserMenu, singleUpload = true }) => {
+const ImageUpload = ({ user, token, updateUser, userMenu, toggleAccountMenu, singleUpload = true }) => {
     
     const [ picLoading, setPicLoading ] = useState(false)
-    const [ images, setImages ] = useState(false)
 
     const fileResizeAndUpload = async (event) => { //npm package react-image-file-resizer
+ 
         setPicLoading(true)
         let fileInput = false
         if (event.target.files[0]) {
             fileInput = true
         }
         if (fileInput) {
+            console.log('tye fileinput')
             Resizer.imageFileResizer(
                 event.target.files[0],
                 1000,
@@ -36,7 +37,7 @@ const ImageUpload = ({ user, token, updateUser, userMenu, toggleUserMenu, single
                         console.log('Error uploading photo(s)', error)
                     } finally {
                         setPicLoading(false)
-                        toggleUserMenu(!userMenu)
+                        toggleAccountMenu(!userMenu)
                     }
 
                 },
@@ -45,40 +46,40 @@ const ImageUpload = ({ user, token, updateUser, userMenu, toggleUserMenu, single
         }
     }
 
-    const deleteImage = async (id) => {
+    // const deleteImage = async (id) => {
 
-        try {
-            setPicLoading(true)
-            await axios.delete('/api/auth/avatar', {
-                public_id: id
-            }, {
-                headers: {
-                    authtoken: user.token
-                }
-            })
-            if (singleUpload) {
-                setImages({ url: '', public_id: '' })
+    //     try {
+    //         setPicLoading(true)
+    //         await axios.delete('/api/auth/avatar', {
+    //             public_id: id
+    //         }, {
+    //             headers: {
+    //                 authtoken: user.token
+    //             }
+    //         })
+    //         if (singleUpload) {
+    //             setImages({ url: '', public_id: '' })
 
-            } else {
-                let filteredImages = images.filter(image => image.public_id !== id)
-                setImages(filteredImages)
-            }
+    //         } else {
+    //             let filteredImages = images.filter(image => image.public_id !== id)
+    //             setImages(filteredImages)
+    //         }
 
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setPicLoading(false)
-        }
+    //     } catch (error) {
+    //         console.log(error)
+    //     } finally {
+    //         setPicLoading(false)
+    //     }
 
-    }
-
+    // }
+ 
     return (
        
             <div className="image-upload" >
                     <label style={{cursor:"pointer"}}>
                         <div>
                             {!picLoading ?
-                                <div style={{color: 'darkblue'}}>{user.photoUrl ? "Change" : "Select" } Avatar</div>
+                                <div style={{color: 'darkblue'}}>{user?.photoUrl ? "Change" : "Select" } Avatar</div>
                                 :
                                <LinearProgress />}
                         </div>

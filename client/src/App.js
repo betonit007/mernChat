@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState} from 'react'
+import React, { useEffect, useContext } from 'react'
 import { ChatContext } from './context/chat/chatContext'
 import { AuthContext } from './context/auth/authContext'
 import Sidebar from './components/Sidebar'
@@ -8,7 +8,7 @@ import LoginRegister from './components/LoginRegister'
 import Pusher from 'pusher-js'
 
 const App = () => {
-   
+    console.log('APP RENDERED***********************************')
     const { addMessage, currentRoom, addRoom } = useContext(ChatContext)
     const { isAuthenticated, loadUser } = useContext(AuthContext)
 

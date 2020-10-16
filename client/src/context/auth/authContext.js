@@ -2,7 +2,7 @@ import React, { useReducer, createContext } from 'react';
 import axios from '../../axios';
 import authReducer from './authReducer';
 import setAuthToken from '../../utils/setAuthToken.js'
-import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, SET_LOADING, LOGOUT, CLEAR_ERRORS } from '../types'
+import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, SET_LOADING, LOGOUT, CLEAR_ERRORS, UPDATE_USER, TOGGLE_USER_MENU } from '../types'
 
 export const AuthContext = createContext()
 
@@ -13,6 +13,7 @@ const AuthState = props => {
         loading: true,
         user: null,
         error: null,
+        showAccountMenu: false,
         saved: []
     }
 
@@ -86,12 +87,26 @@ const AuthState = props => {
         })
     }
 
+    //UPDATE USER info (account changes / avatar update)
+    const updateUser = (userInfo) => {
+        dispatch({
+            type: UPDATE_USER,
+            payload: userInfo
+        })
+    }
+
     //Logout
     const logout = () => dispatch({ type: LOGOUT });
 
     //Clear Errors
     const clearErrors = () => {
         dispatch({ type: CLEAR_ERRORS });
+    }
+
+    const toggleAccountMenu = () => {
+        dispatch({
+            type: TOGGLE_USER_MENU
+        })
     }
 
 
@@ -104,12 +119,15 @@ const AuthState = props => {
                 user: state.user,
                 error: state.error,
                 saved: state.saved,
+                showAccountMenu: state.toggleAccountMenu,
                 loadUser,
                 register,
                 login,
                 setLoading,
                 logout,
-                clearErrors
+                clearErrors,
+                updateUser,
+                toggleAccountMenu
             }}
         > {props.children}
         </AuthContext.Provider>

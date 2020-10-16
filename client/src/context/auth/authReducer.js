@@ -7,7 +7,9 @@ import {
     LOGOUT,
     CLEAR_ERRORS,
     LOGIN_SUCCESS,
-    SET_LOADING
+    SET_LOADING,
+    TOGGLE_USER_MENU,
+    UPDATE_USER,
 } from '../types';
 
 export default (state, action) => {
@@ -41,6 +43,16 @@ export default (state, action) => {
                 user: null,
                 error: action.payload,
                 saved: []
+            }
+        case TOGGLE_USER_MENU:
+            return {
+                ...state,
+                toggleAccountMenu: !state.toggleAccountMenu
+            }
+        case UPDATE_USER:
+            return {
+                ...state,
+                user: { ...state.user, ...action.payload }
             }
         case CLEAR_ERRORS:
             return {

@@ -48,6 +48,41 @@
     font-size: 24px !important;
 }
 
+.user__account {
+    position: absolute;
+    top: 70px;;
+    left: 5px;
+    background-color: white;
+    height: 100px;
+    width: 200px;
+    border: 1px solid teal;
+    border-radius: 5px;
+    z-index: 2;
+    padding: 20px;
+    box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
+    opacity: 0;
+}
+
+.account_visible {
+    opacity: 1;
+    /* transition: opacity .25s ease-in-out; */
+}
+
+.user__account svg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+
+.user__account .userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-bottom: 1px solid lightgray;
+  height: 75px;
+}
+
 .sidebar__search {
     display: flex;
     align-items: center;
@@ -152,6 +187,18 @@
         height: 100%;
     }
 }
+
+/* @keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: scale(.10);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+
+    }
+} */
 
 @keyframes slide-in {
     0% {
