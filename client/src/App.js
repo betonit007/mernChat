@@ -8,7 +8,6 @@ import LoginRegister from './components/LoginRegister'
 import Pusher from 'pusher-js'
 
 const App = () => {
-    console.log('APP RENDERED***********************************')
     const { addMessage, currentRoom, addRoom } = useContext(ChatContext)
     const { isAuthenticated, loadUser } = useContext(AuthContext)
 
@@ -28,7 +27,7 @@ const App = () => {
 
         const channel2 = pusher.subscribe('rooms'); //pusher.subscribe("messages") must match pusher.trigger on backend end server to watch for changes.
         channel2.bind('inserted', newRoom => {
-            console.log(newRoom)
+            
            addRoom(newRoom)
 
         });

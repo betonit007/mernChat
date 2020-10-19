@@ -19,7 +19,6 @@ const SidebarRoomSearch = () => {
     const handleInput = e => {
         setUserInput(e.target.value)
         dynamicFilter(e.target.value)
-        console.log(console.log(filteredRooms.length))
     }
 
     const handleRoomAdd = e => {

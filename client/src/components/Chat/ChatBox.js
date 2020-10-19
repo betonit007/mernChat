@@ -3,7 +3,7 @@ import { formatRelative } from "date-fns";
 
 const ChatBox = ({ chatInfo: { message, name, timestamp, userId }, user }) => {
 
-    const userChat = userId === user._id
+    const userChat = userId === user._id || false
 
     return (
         <div className={`chat__message ${userChat && "chat__reciever"}`}>

@@ -9,7 +9,7 @@ import './styles.css'
 const Sidebar = () => {
 
     const [ sidebar, toggleSidebar ] = useState(true)
-    console.log('SIDEBAR RENDERED*******************************')
+    
     return (
         
         <div className={`sidebar ${sidebar ? 'fadeIn' : 'fadeOut'}`} >

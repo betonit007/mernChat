@@ -70,12 +70,12 @@
 }
 
 .chat__name {
-  position: absolute;
-  top: -12px;
-  left: 0;
-  margin-left: 5px;
-  font-weight: 800;
-  font-size: xx-small;
+    position: absolute;
+    top: -12px;
+    left: 0;
+    margin-left: 5px;
+    font-weight: 800;
+    font-size: xx-small;
 }
 
 .chat__footer {
@@ -83,7 +83,6 @@
     justify-content: center;
     align-items: center;
     height: 62px;
-    border-bottom: 1px solid lightgreen;
     z-index: 2;
 }
 
@@ -94,6 +93,8 @@
 
 .chat__footer form input {
     flex: 1;
+    font-size: 18px;
+    padding: 5px 10px;
     border-radius: 30px;
     padding: none;
     border: none;
@@ -107,6 +108,74 @@
 .chat__footer .MuiSvgIcon-root {
     padding: 10px;
     color: gray;
+    cursor: pointer;
+}
+
+.emoji-display-button {
+    background: none;
+    color: inherit;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+}
+
+.chat__emoji-container {
+    position: relative;
+    background: lightgray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 0px;
+}
+
+.show-emojis {
+    height: 55px;
+    animation: expand-emojis .3s linear;
+}
+
+.shrink-emojis {
+    height: 0px;
+    animation: shrink-emojis .3s linear;
+}
+
+.chat__emoji-body {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: space-evenly;
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: fill-available;
+    padding: 10px;
+    margin: 5px;
+    background: #ffffff;
+    border-radius: 5px;
+}
+
+.emoji_wrapper {
+    cursor: pointer;
+}
+
+@keyframes expand-emojis {
+    from {
+        height: 0px;
+    }
+    to {
+        height: 55px;
+    }
+}
+
+@keyframes shrink-emojis {
+    from {
+        height: 55px;
+    }
+    to {
+        height: 0px;
+    }
 }
 
 /* @media only screen and (max-width: 960px) {

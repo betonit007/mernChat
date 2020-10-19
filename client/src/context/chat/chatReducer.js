@@ -35,13 +35,14 @@ export default (state, action) => {
                 chatsLoading: true
             }
         case INITIATE_ROOM:
-            const { _id, name } = action.payload
+            const { _id, name, creatorInfo } = action.payload
+
             return {
                 ...state,
                 currentRoom: _id,
                 currentRoomChats: [],
-                allRooms: [...state.allRooms, { _id, name }],
-                filteredRooms: [ { _id, name }, ...state.allRooms ]
+                allRooms: [...state.allRooms, { _id, name, creatorInfo }],
+                filteredRooms: [ { _id, name, creatorInfo }, ...state.allRooms ]
             }
         case FILTER_ROOMS:
             return {

@@ -6,7 +6,7 @@ const SidebarChat = ({ name, id, getChats, lastUpdated, creatorInfo }) => {
 
     return (
         <div className='sidebarChat' onClick={()=>getChats({ id, name })}>
-            <Avatar src={creatorInfo.photoUrl && creatorInfo.photoUrl}/>
+            <Avatar src={creatorInfo && creatorInfo.photoUrl}/>
             <div className="sidebarChat__info">
  
                 <h2>{name}</h2>

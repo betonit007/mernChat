@@ -50,21 +50,23 @@
 
 .user__account {
     position: absolute;
+    display: none;
+    flex-direction: column;
     top: 70px;;
     left: 5px;
     background-color: white;
-    height: 100px;
+    height: 110px;
     width: 200px;
     border: 1px solid teal;
     border-radius: 5px;
     z-index: 2;
     padding: 20px;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
-    opacity: 0;
+    
 }
 
 .account_visible {
-    opacity: 1;
+    display: flex;
     /* transition: opacity .25s ease-in-out; */
 }
 
@@ -81,6 +83,11 @@
   justify-content: space-evenly;
   border-bottom: 1px solid lightgray;
   height: 75px;
+}
+
+.user__account button {
+    background:  #9cc2ca;
+    margin-top: 10px;
 }
 
 .sidebar__search {
@@ -215,3 +222,10 @@
         position: relative;
     }
 }
+
+@media only screen and (max-width: 650px) {
+    .sidebar {
+       position: absolute !important;
+       height: 100vh;
+    }
+} 
