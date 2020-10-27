@@ -5,7 +5,7 @@ import Room from '../models/Room.js'
 
 router.get("/populate/:id", async (req, res) => {
     console.log(req.params.id)
-    Room.find({_id:req.params.id})
+    Room.find({ _id: req.params.id })
         .populate("chats")
         .then(roomWithChats => {
             res.json(roomWithChats);
@@ -17,7 +17,7 @@ router.get("/populate/:id", async (req, res) => {
 
 router.get("/rooms", async (req, res) => {
     try {
-        const rooms = await Room.find({}).sort({date: -1})
+        const rooms = await Room.find({}).sort({ date: -1 })
         res.json(rooms)
     } catch (err) {
         res.json(err)
@@ -45,20 +45,21 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/new", async (req, res) => {
-   
-   const { message, name, roomId, userId } = req.body
-   
+
+    const { message, name, roomId, userId, pic } = req.body
+    
     try {
         const { _id } = await MernChat.create(
             {
                 message,
+                pic,
                 name,
                 userId,
                 roomId: roomId.id
             }
         )
         //Push new room to rooms array and update lastUpdate with current time / date
-        const response = await Room.findOneAndUpdate({ _id: roomId.id }, { $set: { lastUpdated: Date.now()}, $push: { chats: _id } })
+        const response = await Room.findOneAndUpdate({ _id: roomId.id }, { $set: { lastUpdated: Date.now() }, $push: { chats: _id } })
 
         res.json(response)
         // MernChat.create({ message: "First one using populate (mongoose)", name: "Tim", timestamp: "hi" })

@@ -1,8 +1,6 @@
 import React, { useContext } from 'react'
 import { Avatar, IconButton } from '@material-ui/core'
 import { SearchOutlined } from '@material-ui/icons';
-import AttachFile from '@material-ui/icons/AttachFile';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { ChatContext } from '../../context/chat/chatContext'
 
 
@@ -32,12 +30,6 @@ const ChatHeader = () => {
             <div className="chat__headerRight">
                 <IconButton>
                     <SearchOutlined />
-                </IconButton>
-                <IconButton>
-                    <AttachFile />
-                </IconButton>
-                <IconButton>
-                    <MoreVertIcon />
                 </IconButton>
             </div>
         </div>

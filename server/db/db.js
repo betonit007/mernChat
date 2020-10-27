@@ -30,15 +30,16 @@ export const connectDB = async () => {
             changeChats.on("change", (change) => {
                 
                 if (change.operationType === 'insert') { // a field in change object (passed in)
-                    const messageDetails = change.fullDocument;
+                    const {name, message, timestamp, received, roomId, userId, pic } = change.fullDocument;
                     
                     pusher.trigger("messages", "inserted", { //first argument must match the pusher.subscribe("messages") on front end. 
-                        name: messageDetails.name,
-                        message: messageDetails.message,
-                        timestamp: messageDetails.timestamp,
-                        received: messageDetails.received,
-                        roomId: messageDetails.roomId,
-                        userId: messageDetails.userId
+                        name,
+                        message,
+                        timestamp,
+                        received,
+                        roomId,
+                        userId,
+                        pic
                     })
                 } else { console.log("Error triggering pusher in messages") }
             })

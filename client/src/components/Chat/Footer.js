@@ -1,48 +1,81 @@
-import React, { useState, useContext } from 'react'
-import InsertEmoticonIcon from "@material-ui/icons/InsertEmoticon"
-import MicIcon from "@material-ui/icons/Mic"
+import React, { useState, useContext, useRef } from 'react'
+import { InsertEmoticon, Mic } from "@material-ui/icons"
 import { ChatContext } from '../../context/chat/chatContext'
 import { AuthContext } from '../../context/auth/authContext'
+import { ToastContext } from '../../context/toast/toastContext'
 import { emojis, Emoji } from './Emojis/EmojiBox'
+import ImageContainer from './ImageContainer'
+import ChatAddImage from './ChatAddImage'
 
 const Footer = () => {
 
     const { sendMessage, currentRoom } = useContext(ChatContext)
+    const { setToast } = useContext(ToastContext)
     const { user } = useContext(AuthContext)
 
-    const [message, setMessage] = useState("")
+    const [input, setInput] = useState({
+        message: "",
+        pic: []
+    })
     const [showEmoji, toggleShowEmoji] = useState(false)
+
+    const messageInputRef = useRef(null)
+
+    const handleInput = e => {
+        setInput({
+           ...input,
+           [e.target.name]: e.target.value
+        })
+        messageInputRef.current.focus()
+    }
 
     const handleMessage = e => {
         e.preventDefault()
-        if (!message) return
-        sendMessage({ message, user })
-        setMessage("")
+        if (!input.message && !input.pic) return
+        sendMessage({ input, user })
+        setInput({
+            message: '',
+            pic: []
+        })
+    }
+
+    const handleEmoji = emojiTextCombined => {
+        setInput({
+            ...input,
+            message: emojiTextCombined
+        })
     }
 
     return (
-        <div className="chatFooter__container">
+        <div
+            onClick={!currentRoom ? () => setToast('warning', "Please select a room..") : undefined}
+            className="chatFooter__container"
+        >
+            <ImageContainer input={input}/>
             <div className='chat__footer'>
                 <button
                     className="emoji-display-button"
                     onClick={() => toggleShowEmoji(!showEmoji)}
                     disabled={!currentRoom}
                 >
-                    <InsertEmoticonIcon />
+                    <InsertEmoticon titleAccess="Add Emoji" />
                 </button>
                 <form onSubmit={handleMessage}>
                     <input
                         placeholder={!currentRoom ? "Select a room to enter message" : "Enter a message..."}
                         type="text"
-                        value={message}
-                        onChange={e => setMessage(e.target.value)}
+                        name="message"
+                        value={input.message}
+                        onChange={e => handleInput(e)}
+                        ref={messageInputRef}
                         disabled={!currentRoom}
                     />
                     <button type="submit">
                         Send a message
                </button>
                 </form>
-                <MicIcon />
+                <ChatAddImage currentRoom={currentRoom} setInput={setInput} input={input}/>
+                {/* <Mic /> */}
             </div>
             <div className={`chat__emoji-container ${showEmoji ? 'show-emojis' : 'shrink-emojis'}`}>
                 <div className="chat__emoji-body">
@@ -51,8 +84,8 @@ const Footer = () => {
                             key={i}
                             label={emoji.label}
                             symbol={emoji.symbol}
-                            message={message}
-                            setMessage={setMessage}
+                            message={input.message}
+                            handleEmoji={handleEmoji}
                         />
 
                     )}

@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { AuthContext } from '../context/auth/authContext'
+import { ToastContext } from '../context/toast/toastContext'
 
 const LoginRegister = () => {
 
     const { login, register } = useContext(AuthContext)
+    const { setToast } = useContext(ToastContext)
 
     const [userInfo, setUserInfo] = useState({
         name: '',
@@ -20,7 +22,9 @@ const LoginRegister = () => {
        if (!loginState) {
          login({email, password})
        } else {
-           if (password !== confirmPassword) return
+           if (password !== confirmPassword) {
+             return setToast('error', 'Passwords do not match!')
+           }
            register({name, email, password})
        }
     }

@@ -92,12 +92,14 @@ const ChatState = props => {
     const sendMessage = async (messageInfo) => {
         
         if (!state.currentRoom.id) return
-     
-        const { user: { name, _id }, message } = messageInfo
+        console.log(messageInfo)
+        const { user: { name, _id }, input } = messageInfo
+        console.log( input, 'reducer!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         try {
             await axios.post(`/api/chats/new`, {
-                message,
+                message: input.message,
                 name,
+                pic: input.pic,
                 roomId: state.currentRoom,
                 userId: _id
             })

@@ -16,7 +16,7 @@ const ImageUpload = ({ user, token, updateUser, userMenu, toggleAccountMenu, sin
             fileInput = true
         }
         if (fileInput) {
-            console.log('tye fileinput')
+            
             Resizer.imageFileResizer(
                 event.target.files[0],
                 1000,

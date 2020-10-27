@@ -1,12 +1,16 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useContext } from 'react';
 import axios from '../../axios';
 import authReducer from './authReducer';
 import setAuthToken from '../../utils/setAuthToken.js'
+import { ToastContext } from '../../context/toast/toastContext'
 import { USER_LOADED, AUTH_ERROR, REGISTER_SUCCESS, REGISTER_FAIL, LOGIN_SUCCESS, LOGIN_FAIL, SET_LOADING, LOGOUT, CLEAR_ERRORS, UPDATE_USER, TOGGLE_USER_MENU } from '../types'
 
 export const AuthContext = createContext()
 
 const AuthState = props => {
+
+    const { setToast } = useContext(ToastContext)
+
     const intialState = {
         token: localStorage.getItem('token'),
         isAuthenticated: null,
@@ -47,6 +51,7 @@ const AuthState = props => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             })
+            setToast('success', "Registration Successful, welcome!")
             
         } catch (err) {
             console.log(err.response.data.msg);
@@ -54,6 +59,7 @@ const AuthState = props => {
                 type: REGISTER_FAIL,
                 payload: err.response.data.msg
             })
+            setToast('error', err.response.data.msg)
         }
     }
 
@@ -73,6 +79,7 @@ const AuthState = props => {
             loadUser();
 
         } catch (err) {
+            setToast("error", "Invalid login credentials")
             dispatch({
                 type: LOGIN_FAIL,
                 payload: err

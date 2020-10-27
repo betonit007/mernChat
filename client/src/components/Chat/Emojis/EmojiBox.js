@@ -58,7 +58,7 @@ export const emojis = [
 
 export const Emoji = props => (
     <span
-        onClick={()=>props.setMessage(props.message + props.symbol)}
+        onClick={()=>props.handleEmoji(props.message + props.symbol)}
         style={{cursor:"pointer"}}
         role="img"
         aria-label={props.label ? props.label : ""}

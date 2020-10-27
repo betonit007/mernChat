@@ -46,8 +46,13 @@
     width: fit-content;
     max-width: 75%;
     border-radius: 10px;
-    background-color: #ffffff;
+    background: #ffffff;
     margin: 5px 0 30px 0;
+}
+
+.chat__message img {
+    max-height: 150px;
+    max-width: 100%;
 }
 
 .chat__message p {
@@ -56,10 +61,15 @@
 }
 
 .chat__reciever {
-    margin-left: auto;
+    margin-left: auto; 
     background: rgb(210, 245, 170);
     text-align: right;
 }
+
+/* .text__reciever {
+    background: rgb(210, 245, 170) important!;
+    text-align: right important!;
+} */
 
 .chat__timestamp {
     position: absolute;
@@ -158,6 +168,18 @@
 
 .emoji_wrapper {
     cursor: pointer;
+}
+
+.footer__ImageContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.footer__ImageContainer img {
+    display: block;
+    max-height: 150px;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 @keyframes expand-emojis {
