@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Resizer from 'react-image-file-resizer'
 import { CircularProgress } from '@material-ui/core'
 import { Image } from "@material-ui/icons"
 import axios from '../../axios'
+import { ToastContext } from '../../context/toast/toastContext'
 
 
-const ImageUpload = ({ user, token, currentRoom, setInput, input, singleUpload = true }) => {
+const ImageUpload = ({ token, currentRoom, setInput, input, singleUpload = true }) => {
+
+    const { setToast } = useContext(ToastContext)
 
     const [picLoading, setPicLoading] = useState(false)
 
@@ -39,6 +42,7 @@ const ImageUpload = ({ user, token, currentRoom, setInput, input, singleUpload =
 
                     } catch (error) {
                         console.log('Error uploading photo(s)', error)
+                        setToast("Error uploading image", error)
                     } finally {
                         setPicLoading(false)
                     }

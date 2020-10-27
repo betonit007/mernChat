@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { Avatar, IconButton } from '@material-ui/core'
-import { SearchOutlined } from '@material-ui/icons';
+// import { Avatar, IconButton } from '@material-ui/core'
+// import { SearchOutlined } from '@material-ui/icons';
 import { ChatContext } from '../../context/chat/chatContext'
 
 
@@ -17,7 +17,7 @@ const ChatHeader = () => {
     
     return (
         <div className="chat__header">
-            <Avatar />
+            {/* <Avatar /> */}
             <div className="chat__headerInfo">
                 {currentRoom?.name && (
                     <>
@@ -28,9 +28,9 @@ const ChatHeader = () => {
             </div>
 
             <div className="chat__headerRight">
-                <IconButton>
+                {/* <IconButton>
                     <SearchOutlined />
-                </IconButton>
+                </IconButton> */}
             </div>
         </div>
     )

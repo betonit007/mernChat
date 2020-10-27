@@ -31,7 +31,7 @@ const Footer = () => {
 
     const handleMessage = e => {
         e.preventDefault()
-        if (!input.message || !input.pic) return
+        if (!input.message && input.pic.length === 0) return
         sendMessage({ input, user })
         setInput({
             message: '',
