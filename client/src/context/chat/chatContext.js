@@ -1,7 +1,7 @@
 import React, { useReducer, createContext } from 'react';
 import axios from '../../axios';
 import chatReducer from './chatReducer'
-import { ADD_CHAT, GET_CHATS, GET_ROOMS, SET_CHATS_LOADING, FILTER_ROOMS, ADD_ROOM, INITIATE_ROOM } from '../types'
+import { ADD_CHAT, GET_CHATS, GET_ROOMS, SET_CHATS_LOADING, FILTER_ROOMS, ADD_ROOM, INITIATE_ROOM, TOGGLE_SIDEBAR } from '../types'
 
 export const ChatContext = createContext()
 
@@ -12,13 +12,14 @@ const ChatState = props => {
         allRooms: null,
         filteredRooms: null,
         chatsLoading: false,
-        roomsLoading: true
+        roomsLoading: true,
+        showSidebar: true
     }
 
     const [state, dispatch] = useReducer(chatReducer, initialState);
 
     
-    const { currentRoomChats, currentRoom, allRooms, chatsLoading, roomsLoading, filteredRooms } = state
+    const { currentRoomChats, currentRoom, allRooms, chatsLoading, roomsLoading, filteredRooms, showSidebar } = state
 
     const getChats = async ({id, name }) => {
         setChatsLoading()
@@ -92,9 +93,9 @@ const ChatState = props => {
     const sendMessage = async (messageInfo) => {
         
         if (!state.currentRoom.id) return
-        console.log(messageInfo)
+     
         const { user: { name, _id }, input } = messageInfo
-        console.log( input, 'reducer!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      
         try {
             await axios.post(`/api/chats/new`, {
                 message: input.message,
@@ -126,6 +127,14 @@ const ChatState = props => {
         })
     }
 
+    const toggleSideBar = () => {
+     
+        dispatch({
+            type: TOGGLE_SIDEBAR,
+            payload: !state.showSidebar
+        })
+    }
+
     return (
         <ChatContext.Provider
             value={{
@@ -135,6 +144,7 @@ const ChatState = props => {
                 filteredRooms,
                 chatsLoading,
                 roomsLoading,
+                showSidebar,
                 getChats,
                 getRooms,
                 setChatsLoading,
@@ -142,7 +152,8 @@ const ChatState = props => {
                 addMessage,
                 dynamicFilter,
                 sendRoom,
-                addRoom
+                addRoom,
+                toggleSideBar
             }}
         >
             {props.children}

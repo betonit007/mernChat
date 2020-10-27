@@ -1,6 +1,6 @@
 import {
     ADD_CHAT, ADD_ROOM,
-    GET_ROOMS, GET_CHATS, SET_CHATS_LOADING, FILTER_ROOMS, INITIATE_ROOM
+    GET_ROOMS, GET_CHATS, SET_CHATS_LOADING, FILTER_ROOMS, INITIATE_ROOM, TOGGLE_SIDEBAR
 } from '../types';
 
 export default (state, action) => {
@@ -23,11 +23,13 @@ export default (state, action) => {
                 filteredRooms: action.payload
             }
         case GET_CHATS:
+            const keepSidebar = window.innerWidth > 650
             return {
                 ...state,
                 currentRoomChats: action.payload.chats.chats,
                 currentRoom: action.payload.roomInfo,
-                chatsLoading: false
+                chatsLoading: false,
+                showSidebar: keepSidebar
             }
         case SET_CHATS_LOADING:
             return {
@@ -51,6 +53,11 @@ export default (state, action) => {
                     const regex = new RegExp(`${action.payload}`, 'gi'); //match wether upper or lower case
                     return room.name.match(regex);
                 })
+            }
+        case TOGGLE_SIDEBAR:
+            return {
+                ...state,
+                showSidebar: action.payload
             }
         default:
             return state

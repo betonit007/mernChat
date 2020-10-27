@@ -19,4 +19,5 @@ export const SET_LOADING = 'SET_LOADING'
 export const UPDATE_USER = 'UPDATE_USER'
 export const UPDATE_AVATAR = 'UPDATE_AVATAR'
 export const TOGGLE_USER_MENU = 'TOGGLE_USER_MENU'
+export const TOGGLE_SIDEBAR = 'TOGGLE_SIDEBAR'
 

@@ -20,7 +20,6 @@ const Toast = ({ position = 'top-right', autoDelete = true, dismissTime = 4000 }
         // eslint-disable-next-line
     }, [toastList, autoDelete, dismissTime]);
 
-    console.log(toastList)
     return (
         <>
             <div className={`notification-container ${position}`}>

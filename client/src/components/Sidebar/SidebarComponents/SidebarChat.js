@@ -10,7 +10,7 @@ const SidebarChat = ({ name, id, getChats, lastUpdated, creatorInfo }) => {
             <div className="sidebarChat__info">
  
                 <h2>{name}</h2>
-                    {lastUpdated && <small>{`Updated: ${formatRelative(new Date(lastUpdated), new Date())}`}</small>}
+                    {lastUpdated && <small>{`Updated ${formatRelative(new Date(lastUpdated), new Date())}`}</small>}
             </div>
             
         </div>
