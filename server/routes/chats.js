@@ -2,9 +2,12 @@ import express from 'express'
 const router = express.Router();
 import MernChat from '../models/dbMessages.js'
 import Room from '../models/Room.js'
+import cloudinary from 'cloudinary'
+
+import { auth } from '../middleware/auth.js'; 
 
 router.get("/populate/:id", async (req, res) => {
-    console.log(req.params.id)
+  
     Room.find({ _id: req.params.id })
         .populate("chats")
         .then(roomWithChats => {
@@ -72,6 +75,63 @@ router.post("/new", async (req, res) => {
 
     }
 })
+
+router.post('/image', auth, async (req, res) => {
+
+	try {
+		//const secret = await getSecret()
+
+		cloudinary.config({
+			cloud_name: process.env.CLOUDINARY_CLOUD_NAME || secret.cloudinary_cloud_name,
+			api_key: process.env.CLOUDINARY_API_KEY || secret.cloudinary_api_key,
+			api_secret: process.env.CLOUDINARY_SECRET || secret.cloudinary_secret
+		})
+
+		cloudinary.uploader.upload(
+			req.body.image,
+			async (result) => {
+
+				if (result.error) return res.json({ error: result.error })
+
+				res.send({
+					//url: result.url,
+					photoUrl: result.secure_url,
+					public_id: result.public_id
+				});
+			},
+			{
+				public_id: `${Date.now()}`, // public name
+				resource_type: 'auto' // JPEG, PNG
+			}
+		);
+
+	} catch (error) {
+		console.log(error)
+		res.json(error)
+	}
+})
+
+router.delete('/image', auth, async (req, res) => {
+
+	try {
+
+		let image_id = req.body.public_id
+
+		cloudinary.uploader.destroy(image_id, (error, result) => {
+			if (error) {
+				res.json({ success: false, error })
+			} else {
+				res.json(result)
+			}
+		})
+
+	} catch (error) {
+		console.log(error)
+		res.json(error)
+	}
+
+})
+
 
 
 

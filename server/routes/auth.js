@@ -140,7 +140,6 @@ router.delete('/image', auth, async (req, res) => {
 
 		cloudinary.uploader.destroy(image_id, (error, result) => {
 			if (error) {
-				console.log(error)
 				res.json({ success: false, error })
 			} else {
 				res.json(result)
