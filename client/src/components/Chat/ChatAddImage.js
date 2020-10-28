@@ -18,7 +18,7 @@ const ImageUpload = ({ token, currentRoom, setInput, input, singleUpload = true 
         let fileInput = false
         if (event.target.files[0]) {
             fileInput = true
-        }
+        } else return setPicLoading(false)
         if (fileInput) {
 
             Resizer.imageFileResizer(
@@ -30,7 +30,7 @@ const ImageUpload = ({ token, currentRoom, setInput, input, singleUpload = true 
                 0,
                 async uri => {
                     try {
-                        const { data } = await axios.post('/api/auth/image', { image: uri }, {
+                        const { data } = await axios.post('/api/chats/image', { image: uri }, {
                             headers: {
                                 authtoken: token
                             }
