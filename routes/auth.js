@@ -1,16 +1,17 @@
-import express from 'express'
+const express = require('express')
 const router = express.Router();
-import bcrypt from 'bcryptjs'
-import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv'
-import cloudinary from 'cloudinary'
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const dotenv = require('dotenv')
+const cloudinary = require('cloudinary')
+const getSecret = require('../config/secrets.js')
 
 dotenv.config()
 
 //const getSecret = require("../config/secrets")
-import { auth } from '../middleware/auth.js'; //bring in to verify token
+const auth = require('../middleware/auth') //bring in to verify token
 
-import User from '../models/User.js';
+const User = require('../models/User.js')
 
 router.get('/', auth, async (req, res) => {
 
@@ -42,7 +43,7 @@ router.post('/login', async (req, res) => {
 		}
 
 		// run below if there is a match
-		jwt.sign({ user: user._id }, process.env.JWT_SECRET, { //pass in an object with user id to create webtoken with jsonwebtoken
+		jwt.sign({ user: user._id }, await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
 			expiresIn: 36000                                         // a secret must also be passed into sign (it can be whatever you want (store in config.get() from config npm))
 		}, (err, token) => {
 			if (err) throw err;
@@ -77,7 +78,7 @@ router.post('/newuser', async (req, res) => {
 
 		await user.save(); // save incrypted user info to mongo db
 
-		jwt.sign({ user: user._id }, process.env.JWT_SECRET || await getSecret().then(secret => secret.jwt_secret), { //pass in an object with user id to create webtoken with jsonwebtoken
+		jwt.sign({ user: user._id }, await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
 			expiresIn: 3600000                                       // a secret must also be passed into sign (it can be whatever you want (store in config.get() from config npm))
 		}, (err, token) => {
 			if (err) throw err;
@@ -92,12 +93,12 @@ router.post('/newuser', async (req, res) => {
 router.post('/image', auth, async (req, res) => {
 
 	try {
-		//const secret = await getSecret()
+		const secret = await getSecret()
 
 		cloudinary.config({
-			cloud_name: process.env.CLOUDINARY_CLOUD_NAME || secret.cloudinary_cloud_name,
-			api_key: process.env.CLOUDINARY_API_KEY || secret.cloudinary_api_key,
-			api_secret: process.env.CLOUDINARY_SECRET || secret.cloudinary_secret
+			cloud_name: secret.CLOUDINARY_CLOUD_NAME,
+			api_key: secret.CLOUDINARY_API_KEY,
+			api_secret: secret.CLOUDINARY_SECRET
 		})
 
 		cloudinary.uploader.upload(
@@ -153,4 +154,4 @@ router.delete('/image', auth, async (req, res) => {
 
 })
 
-export default router;
+module.exports = router;

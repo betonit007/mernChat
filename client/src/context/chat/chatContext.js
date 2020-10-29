@@ -82,7 +82,6 @@ const ChatState = props => {
     }
 
     const addRoom = roomInfo => {
-        console.log(roomInfo, 'room reducer')
 
         dispatch({
             type: ADD_ROOM,

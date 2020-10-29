@@ -1,10 +1,10 @@
-import express from 'express'
+const express = require('express')
 const router = express.Router();
-import MernChat from '../models/dbMessages.js'
-import Room from '../models/Room.js'
-import cloudinary from 'cloudinary'
-
-import { auth } from '../middleware/auth.js'; 
+const MernChat = require('../models/dbMessages.js')
+const Room = require('../models/Room.js')
+const cloudinary = require('cloudinary')
+const getSecret = require('../config/secrets.js')
+const auth = require('../middleware/auth.js')
 
 router.get("/populate/:id", async (req, res) => {
   
@@ -79,12 +79,12 @@ router.post("/new", async (req, res) => {
 router.post('/image', auth, async (req, res) => {
 
 	try {
-		//const secret = await getSecret()
+		const secret = await getSecret()
 
 		cloudinary.config({
-			cloud_name: process.env.CLOUDINARY_CLOUD_NAME || secret.cloudinary_cloud_name,
-			api_key: process.env.CLOUDINARY_API_KEY || secret.cloudinary_api_key,
-			api_secret: process.env.CLOUDINARY_SECRET || secret.cloudinary_secret
+			cloud_name: secret.CLOUDINARY_CLOUD_NAME,
+			api_key: secret.CLOUDINARY_API_KEY,
+			api_secret: secret.CLOUDINARY_SECRET
 		})
 
 		cloudinary.uploader.upload(
@@ -135,4 +135,4 @@ router.delete('/image', auth, async (req, res) => {
 
 
 
-export default router
+module.exports = router

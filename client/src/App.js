@@ -13,7 +13,7 @@ const App = () => {
   const { isAuthenticated, loadUser } = useContext(AuthContext)
 
   useEffect(() => {
-    Pusher.logToConsole = false;
+    Pusher.logToConsole = true;
 
     const pusher = new Pusher(process.env.REACT_APP_PUSHER, {
       cluster: 'mt1'
@@ -28,7 +28,7 @@ const App = () => {
 
     const channel2 = pusher.subscribe('rooms'); //pusher.subscribe("messages") must match pusher.trigger on backend end server to watch for changes.
     channel2.bind('inserted', newRoom => {
-
+      console.log('newRoom', newRoom)
       addRoom(newRoom)
 
     });

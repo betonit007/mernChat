@@ -1,21 +1,22 @@
-import mongoose from 'mongoose'
-import Pusher from 'pusher'
-import dotenv from 'dotenv'
+const mongoose = require('mongoose')
+const Pusher = require('pusher')
+const dotenv = require('dotenv')
+const getSecret = require('../config/secrets.js')
 dotenv.config()
 
-const pusher = new Pusher({
-    appId: process.env.PUSHER_ID,
-    key: process.env.PUSHER_KEY,
-    secret: process.env.PUSHER_SECRET,
-    cluster: 'mt1',
-    encrypted: true
-});
+const connectDB = async () => {
 
-export const connectDB = async () => {
+    const pusher = new Pusher({
+        appId: await getSecret().then(secret=>secret.PUSHER_ID),
+        key: await getSecret().then(secret=>secret.PUSHER_KEY),
+        secret: await getSecret().then(secret=>secret.PUSHER_SECRET),
+        cluster: 'mt1',
+        encrypted: true
+    });
 
     try {
 
-        mongoose.connect(process.env.MONGO_URI, {
+        mongoose.connect(await getSecret().then(secret=>secret.MONGO_URI), {
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: true
@@ -28,7 +29,7 @@ export const connectDB = async () => {
             const changeChats = chatCollection.watch()
 
             changeChats.on("change", (change) => {
-                
+                console.log('chat change')
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const {name, message, timestamp, received, roomId, userId, pic } = change.fullDocument;
                     
@@ -48,7 +49,7 @@ export const connectDB = async () => {
             const changeRooms = roomCollection.watch()
 
             changeRooms.on("change", (change) => {
-                
+                console.log('room change')
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const messageDetails = change.fullDocument;
 
@@ -58,7 +59,7 @@ export const connectDB = async () => {
                         creatorInfo: messageDetails.creatorInfo,
                         _id: messageDetails._id
                     })
-                } else { console.log("Error triggering pusher in rooms") }
+                } else { console.log(change.operationType, "Error Room") }
             })
         })
 
@@ -68,4 +69,4 @@ export const connectDB = async () => {
 
 }
 
-
+module.exports = connectDB

@@ -1,8 +1,8 @@
 //middleware - function that has access to the req and response cycle / object
-import jwt from 'jsonwebtoken';
-//const getSecret = require("../config/secrets") //GOOGLE SECRETS
+const jwt = require('jsonwebtoken')
+const getSecret = require("../config/secrets.js") //GOOGLE SECRETS
 
-export const auth = async (req, res, next) => {  // next just moves on to next middleware
+module.exports = async (req, res, next) => {  // next just moves on to next middleware
   //Get token from header
   const token = req.header('x-auth-token') //x-auth-token is the key to token in the header
   
@@ -12,7 +12,7 @@ export const auth = async (req, res, next) => {  // next just moves on to next m
   }
   //then if there is a token, we need to verify it
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || await getSecret().then(secret => secret.jwt_secret)); // pass in token and 'jwtSecret' to verify token
+    const decoded = jwt.verify(token, await getSecret().then(secret => secret.JWT_SECRET)); // pass in token and 'jwtSecret' to verify token
     req.user = decoded.user;
     next();
   } catch (err) {

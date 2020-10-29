@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const Schema = mongoose.Schema;
 
@@ -19,4 +19,4 @@ const mernChatSchema = new Schema({
     photo: String
 })
 
-export default mongoose.model("MernChat", mernChatSchema)
+module.exports = mongoose.model("MernChat", mernChatSchema)
