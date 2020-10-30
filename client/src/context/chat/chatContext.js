@@ -80,7 +80,7 @@ const ChatState = props => {
     }
 
     const addRoom = roomInfo => {
-
+        console.log(currentRoom)
         dispatch({
             type: ADD_ROOM,
             payload: roomInfo
@@ -109,7 +109,9 @@ const ChatState = props => {
 
 
     const addMessage = newChat => {
-     
+        console.log(currentRoom, newChat.roomId)
+        if (!currentRoom || currentRoom.id !== newChat.roomId) return
+        
         dispatch({
             type: ADD_CHAT,
             payload: newChat

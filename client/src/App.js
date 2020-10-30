@@ -14,7 +14,11 @@ const App = () => {
 
   useEffect(() => {
     Pusher.logToConsole = false;
+<<<<<<< HEAD
     console.log('**************************************************************LISTENER EFFECT********************************************')
+=======
+
+>>>>>>> goingBack
     const pusher = new Pusher(process.env.REACT_APP_PUSHER, {
       cluster: 'mt1'
     });
