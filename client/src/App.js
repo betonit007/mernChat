@@ -13,7 +13,7 @@ const App = () => {
   const { isAuthenticated, loadUser } = useContext(AuthContext)
 
   useEffect(() => {
-    Pusher.logToConsole = true;
+    Pusher.logToConsole = false;
 
     const pusher = new Pusher(process.env.REACT_APP_PUSHER, {
       cluster: 'mt1'
