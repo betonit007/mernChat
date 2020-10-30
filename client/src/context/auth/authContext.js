@@ -1,5 +1,5 @@
 import React, { useReducer, createContext, useContext } from 'react';
-import axios from '../../axios';
+import axios from 'axios';
 import authReducer from './authReducer';
 import setAuthToken from '../../utils/setAuthToken.js'
 import { ToastContext } from '../../context/toast/toastContext'

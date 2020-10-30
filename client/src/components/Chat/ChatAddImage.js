@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import Resizer from 'react-image-file-resizer'
 import { CircularProgress } from '@material-ui/core'
 import { Image } from "@material-ui/icons"
-import axios from '../../axios'
+import axios from 'axios'
 import { ToastContext } from '../../context/toast/toastContext'
 
 

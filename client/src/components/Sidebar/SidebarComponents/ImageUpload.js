@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Resizer from 'react-image-file-resizer'
 import { LinearProgress } from '@material-ui/core/';
-import axios from '../../../axios'
+import axios from 'axios'
 
 
 const ImageUpload = ({ user, token, updateUser, userMenu, toggleAccountMenu, singleUpload = true }) => {

@@ -6,6 +6,7 @@ import {
 export default (state, action) => {
     switch (action.type) {
         case ADD_CHAT:
+            if (!state.currentRoom || state.currentRoom.id !== action.payload.roomId) return
             return {
                 ...state,
                 currentRoomChats: [...state.currentRoomChats, action.payload]

@@ -31,7 +31,7 @@ const Chats = () => {
 
     return (
         <div className="chat__body" >
-            {currentRoomChats && currentRoomChats.map((chat, i) => <ChatBox key={i} chatInfo={chat} user={user}/>)}
+            {currentRoomChats?.map((chat, i) => <ChatBox key={i} chatInfo={chat} user={user}/>)}
             {(!currentRoomChats && !chatsLoading) && <h1>Please select a room</h1>}
             {chatsLoading && <div className='sidebar__spinner'><CircularProgress style={{ color: 'aqua' }} /></div>}
             <div ref={bottomDiv} />

@@ -1,5 +1,5 @@
 import React, { useReducer, createContext } from 'react';
-import axios from '../../axios';
+import axios from 'axios';
 import chatReducer from './chatReducer'
 import { ADD_CHAT, GET_CHATS, GET_ROOMS, SET_CHATS_LOADING, FILTER_ROOMS, ADD_ROOM, INITIATE_ROOM, TOGGLE_SIDEBAR } from '../types'
 
@@ -8,7 +8,7 @@ export const ChatContext = createContext()
 const ChatState = props => {
     const initialState = {
         currentRoom: null,
-        currentRoomChats: null,
+        currentRoomChats: [],
         allRooms: null,
         filteredRooms: null,
         chatsLoading: false,
@@ -18,7 +18,6 @@ const ChatState = props => {
 
     const [state, dispatch] = useReducer(chatReducer, initialState);
 
-    
     const { currentRoomChats, currentRoom, allRooms, chatsLoading, roomsLoading, filteredRooms, showSidebar } = state
 
     const getChats = async ({id, name }) => {
@@ -110,9 +109,7 @@ const ChatState = props => {
 
 
     const addMessage = newChat => {
-        console.log('add message called')
-        //if (!state.currentRoom) return
-        
+     
         dispatch({
             type: ADD_CHAT,
             payload: newChat

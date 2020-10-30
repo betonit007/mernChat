@@ -29,7 +29,7 @@ const connectDB = async () => {
             const changeChats = chatCollection.watch()
 
             changeChats.on("change", (change) => {
-                console.log('chat change')
+                
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const {name, message, timestamp, received, roomId, userId, pic } = change.fullDocument;
                     
@@ -42,14 +42,14 @@ const connectDB = async () => {
                         userId,
                         pic
                     })
-                } else { console.log("Error triggering pusher in messages") }
+                } else { console.log(change, "Error triggering pusher in messages") }
             })
 
             const roomCollection = db.collection("rooms"); //"mernrooms" is the name of the model we created in folder (./models/dbMessages.js)
             const changeRooms = roomCollection.watch()
 
             changeRooms.on("change", (change) => {
-                console.log('room change')
+                
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const messageDetails = change.fullDocument;
 
@@ -59,7 +59,7 @@ const connectDB = async () => {
                         creatorInfo: messageDetails.creatorInfo,
                         _id: messageDetails._id
                     })
-                } else { console.log(change.operationType, "Error Room") }
+                } else { console.log(change, "Error Room") }
             })
         })
 

@@ -21,19 +21,18 @@ const App = () => {
 
     const channel = pusher.subscribe('messages'); //pusher.subscribe("messages") must match pusher.trigger on backend end server to watch for changes.
     channel.bind('inserted', newChat => {
-      console.log('messages', newChat)
       addMessage(newChat)
 
     });
 
     const channel2 = pusher.subscribe('rooms'); //pusher.subscribe("messages") must match pusher.trigger on backend end server to watch for changes.
     channel2.bind('inserted', newRoom => {
-      console.log('newRoom', newRoom)
+      
       addRoom(newRoom)
 
     });
     return () => {
-      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RETURN CALLED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RETURN')
       channel.unbind_all();
       channel.unsubscribe(); //clean so multiple new listeners are not created.
       channel2.unbind_all();
