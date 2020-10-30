@@ -47,7 +47,6 @@ const ChatState = props => {
         } catch (error) {
             console.error('GET_ROOMS failed', error)
         }
-
     }
 
     const setChatsLoading = () => {
@@ -111,7 +110,8 @@ const ChatState = props => {
 
 
     const addMessage = newChat => {
-        if (!state.currentRoom) return
+        console.log('add message called')
+        //if (!state.currentRoom) return
         
         dispatch({
             type: ADD_CHAT,

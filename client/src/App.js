@@ -13,8 +13,8 @@ const App = () => {
   const { isAuthenticated, loadUser } = useContext(AuthContext)
 
   useEffect(() => {
-    Pusher.logToConsole = true;
-
+    Pusher.logToConsole = false;
+    console.log('**************************************************************LISTENER EFFECT********************************************')
     const pusher = new Pusher(process.env.REACT_APP_PUSHER, {
       cluster: 'mt1'
     });
@@ -33,12 +33,13 @@ const App = () => {
 
     });
     return () => {
+      console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!RETURN CALLED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
       channel.unbind_all();
       channel.unsubscribe(); //clean so multiple new listeners are not created.
       channel2.unbind_all();
       channel2.unsubscribe();
     }
-  }, [currentRoom])
+  }, [])
 
   useEffect(() => {
     loadUser()
