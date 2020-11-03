@@ -29,7 +29,7 @@ const connectDB = async () => {
             const changeChats = chatCollection.watch()
 
             changeChats.on("change", (change) => {
-                console.log('chat change')
+               
                 if (change.operationType === 'insert') { // a field in change object (passed in)
                     const {name, message, timestamp, received, roomId, userId, pic } = change.fullDocument;
                     

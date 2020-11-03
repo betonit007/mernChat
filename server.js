@@ -3,20 +3,21 @@ const path = require('path')
 const connectDB = require('./db/db')
 const chatRouter = require('./routes/chats.js')
 const authRouter = require('./routes/auth.js')
-const cors = require('cors')
+//const cors = require('cors')  //FOR DEVELOPMENT ONLY************************
 
 const PORT = process.env.PORT || 5000
 const app = express()
 
+//connect to DB
+connectDB()
+
+// we can now accept info from req.body and limit incoming file size to 5mb
+app.use(express.json({ extended: false, limit: '5mb' }));
+//app.use(cors())
+
 // GOOGLE CLOUD DEPLOY
 app.use(express.static(path.join(__dirname, "/client/build")))
 // middleware
-// we can now accept info from req.body and limit incoming file size to 5mb
-app.use(express.json({ extended: false, limit: '5mb' }));
-app.use(cors())
-
-//connect to DB
-connectDB()
 
 //api routes
 app.use('/api/chats', chatRouter)
