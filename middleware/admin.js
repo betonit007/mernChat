@@ -16,7 +16,7 @@ module.exports = async function(req, res, next) {  // next just moves on to next
   //then if there is a token, we need to verify it
   
   try {
-    const decoded = jwt.verify(token, await getSecret().then(secret => secret.jwt_secret)); // pass in token and 'jwtSecret' to verify token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || await getSecret().then(secret => secret.jwt_secret)); // pass in token and 'jwtSecret' to verify token
     const isAdmin = await User.findOne({_id: decoded.user.id})
    
     if (isAdmin.role !== "root") return res.status(401).json({ msg: 'You are not authorized to modify inventory' });

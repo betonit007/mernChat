@@ -7,16 +7,16 @@ dotenv.config()
 const connectDB = async () => {
 
     const pusher = new Pusher({
-        appId: await getSecret().then(secret=>secret.PUSHER_ID),
-        key: await getSecret().then(secret=>secret.PUSHER_KEY),
-        secret: await getSecret().then(secret=>secret.PUSHER_SECRET),
+        appId: process.env.PUSHER_ID || await getSecret().then(secret=>secret.PUSHER_ID),
+        key:  process.env.PUSHER_KEY || await getSecret().then(secret=>secret.PUSHER_KEY),
+        secret: process.env.PUSHER_SECRET || await getSecret().then(secret=>secret.PUSHER_SECRET),
         cluster: 'mt1',
         encrypted: true
     });
 
     try {
 
-        mongoose.connect(await getSecret().then(secret=>secret.MONGO_URI), {
+        mongoose.connect(process.env.MONGO_URI || await getSecret().then(secret=>secret.MONGO_URI), {
             useNewUrlParser: true,
             useCreateIndex: true,
             useFindAndModify: true

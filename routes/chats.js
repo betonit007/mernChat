@@ -27,7 +27,7 @@ router.get("/rooms", async (req, res) => {
     }
 })
 
-router.post("/newroom", async (req, res) => {
+router.post("/newroom", auth, async (req, res) => {
     try {
         const newRoom = await Room.create(req.body)
         res.json(newRoom)
@@ -47,7 +47,7 @@ router.get("/:id", async (req, res) => {
     }
 })
 
-router.post("/new", async (req, res) => {
+router.post("/new", auth, async (req, res) => {
 
     const { message, name, roomId, userId, pic } = req.body
     
@@ -82,9 +82,9 @@ router.post('/image', auth, async (req, res) => {
 		const secret = await getSecret()
 
 		cloudinary.config({
-			cloud_name: secret.CLOUDINARY_CLOUD_NAME,
-			api_key: secret.CLOUDINARY_API_KEY,
-			api_secret: secret.CLOUDINARY_SECRET
+			cloud_name: secret ? secret.CLOUDINARY_CLOUD_NAME : process.env.CLOUDINARY_CLOUD_NAME,
+			api_key: secret ? secret.CLOUDINARY_API_KEY : process.env.CLOUDINARY_API_KEY,
+			api_secret: secret ? secret.CLOUDINARY_SECRET : process.env.CLOUDINARY_SECRET
 		})
 
 		cloudinary.uploader.upload(

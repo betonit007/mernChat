@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
 		}
 
 		// run below if there is a match
-		jwt.sign({ user: user._id }, await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
+		jwt.sign({ user: user._id }, process.env.JWT_SECRET || await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
 			expiresIn: 36000                                         // a secret must also be passed into sign (it can be whatever you want (store in config.get() from config npm))
 		}, (err, token) => {
 			if (err) throw err;
@@ -78,7 +78,7 @@ router.post('/newuser', async (req, res) => {
 
 		await user.save(); // save incrypted user info to mongo db
 
-		jwt.sign({ user: user._id }, await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
+		jwt.sign({ user: user._id },  process.env.JWT_SECRET || await getSecret().then(secret => secret.JWT_SECRET), { //pass in an object with user id to create webtoken with jsonwebtoken
 			expiresIn: 3600000                                       // a secret must also be passed into sign (it can be whatever you want (store in config.get() from config npm))
 		}, (err, token) => {
 			if (err) throw err;
@@ -96,9 +96,9 @@ router.post('/image', auth, async (req, res) => {
 		const secret = await getSecret()
 
 		cloudinary.config({
-			cloud_name: secret.CLOUDINARY_CLOUD_NAME,
-			api_key: secret.CLOUDINARY_API_KEY,
-			api_secret: secret.CLOUDINARY_SECRET
+			cloud_name: secret ? secret.CLOUDINARY_CLOUD_NAME : process.env.CLOUDINARY_CLOUD_NAME,
+			api_key: secret ? secret.CLOUDINARY_API_KEY : process.env.CLOUDINARY_API_KEY,
+			api_secret: secret ? secret.CLOUDINARY_SECRET : process.env.CLOUDINARY_SECRET
 		})
 
 		cloudinary.uploader.upload(

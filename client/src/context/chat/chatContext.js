@@ -1,6 +1,7 @@
-import React, { useReducer, createContext } from 'react';
+import React, { useReducer, createContext, useContext } from 'react';
 import axios from '../../axios';
 import chatReducer from './chatReducer'
+import { ToastContext } from '../../context/toast/toastContext'
 import { ADD_CHAT, GET_CHATS, GET_ROOMS, SET_CHATS_LOADING, FILTER_ROOMS, ADD_ROOM, INITIATE_ROOM, TOGGLE_SIDEBAR } from '../types'
 
 export const ChatContext = createContext()
@@ -15,6 +16,8 @@ const ChatState = props => {
         roomsLoading: true,
         showSidebar: true
     }
+
+    const { setToast } = useContext(ToastContext)
 
     const [state, dispatch] = useReducer(chatReducer, initialState);
 
@@ -31,7 +34,7 @@ const ChatState = props => {
                 payload: { chats, roomInfo : {id, name} }
             })
         } catch (error) {
-            console.log(error)
+            setToast('error', error)
         }
 
     }
@@ -46,6 +49,7 @@ const ChatState = props => {
             })
         } catch (error) {
             console.error('GET_ROOMS failed', error)
+            setToast('error', error)
         }
 
     }
@@ -77,6 +81,7 @@ const ChatState = props => {
             })
 
         } catch (error) {
+            setToast('error', error)
             console.log(error)
         }
     }
@@ -105,6 +110,7 @@ const ChatState = props => {
             })
 
         } catch (error) {
+            setToast('error', error)
             console.log(error)
         }
     }

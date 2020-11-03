@@ -3,17 +3,18 @@ const path = require('path')
 const connectDB = require('./db/db')
 const chatRouter = require('./routes/chats.js')
 const authRouter = require('./routes/auth.js')
-//const cors = require('cors')  //FOR DEVELOPMENT ONLY************************
+const cors = require('cors')  //FOR DEVELOPMENT ONLY************************
 
 const PORT = process.env.PORT || 5000
 const app = express()
 
 //connect to DB
 connectDB()
-
+console.log(process.env.NODE_ENV)
 // we can now accept info from req.body and limit incoming file size to 5mb
 app.use(express.json({ extended: false, limit: '5mb' }));
-//app.use(cors())
+
+process.env.NODE_ENV === 'development' && app.use(cors()) // DEV ONLY
 
 // GOOGLE CLOUD DEPLOY
 app.use(express.static(path.join(__dirname, "/client/build")))
@@ -32,4 +33,4 @@ app.listen(PORT, () => {
     console.log(`Listening on localhost:${PORT}`)
 })
 
-// GOOGLE_APPLICATION_CREDENTIALS="C:\Users\Tim\dev\MERN\credsFolder\mernpusherchat.json" nodemon server.js
+// GOOGLE_APPLICATION_CREDENTIALS="C:\Users\Tim\dev\MERN\credsFolder\mernpusherchat.json" npm run dev
