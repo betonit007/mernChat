@@ -6,8 +6,8 @@ import axios from '../../axios'
 import { ToastContext } from '../../context/toast/toastContext'
 
 
-const ImageUpload = ({ token, currentRoom, setInput, input, singleUpload = true }) => {
-
+const ImageUpload = ({ token, currentRoom, setInput, input, returnToInput, singleUpload = true }) => {
+   
     const { setToast } = useContext(ToastContext)
 
     const [picLoading, setPicLoading] = useState(false)
@@ -51,6 +51,7 @@ const ImageUpload = ({ token, currentRoom, setInput, input, singleUpload = true 
                 'base64'
             );
         }
+        returnToInput()
     }
 
     return (

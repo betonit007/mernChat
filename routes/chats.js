@@ -111,15 +111,13 @@ router.post('/image', auth, async (req, res) => {
 	}
 })
 
-router.delete('/image', auth, async (req, res) => {
-
+router.post('/removeimage', auth, async (req, res) => {
+    console.log(req.body.public_id)
 	try {
 
-		let image_id = req.body.public_id
-
-		cloudinary.uploader.destroy(image_id, (error, result) => {
-			if (error) {
-				res.json({ success: false, error })
+		cloudinary.uploader.destroy(req.body.public_id, (result) => {
+			if (result.error) {
+				res.json({ error: result.error })
 			} else {
 				res.json(result)
 			}
@@ -131,8 +129,5 @@ router.delete('/image', auth, async (req, res) => {
 	}
 
 })
-
-
-
 
 module.exports = router

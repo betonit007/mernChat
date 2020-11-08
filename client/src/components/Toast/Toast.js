@@ -20,6 +20,7 @@ const Toast = ({ position = 'top-right', autoDelete = true, dismissTime = 4000 }
         // eslint-disable-next-line
     }, [toastList, autoDelete, dismissTime]);
 
+
     return (
         <>
             <div className={`notification-container ${position}`}>
@@ -37,9 +38,11 @@ const Toast = ({ position = 'top-right', autoDelete = true, dismissTime = 4000 }
                                 <img src={toast.icon} alt="" />
                             </div>
                             <div>
-                                <p className="notification-title">{toast.title}</p>
-                                <p className="notification-message">
+                                <p className="notification-title">
                                     {toast.description}
+                                </p>
+                                <p className="notification-message">
+                                    {/* {toast.title} */}
                                 </p>
                             </div>
                         </div>

@@ -136,9 +136,9 @@ router.post('/image', auth, async (req, res) => {
 router.delete('/image', auth, async (req, res) => {
 
 	try {
-
+        
 		let image_id = req.body.public_id
-
+        
 		cloudinary.uploader.destroy(image_id, (error, result) => {
 			if (error) {
 				res.json({ success: false, error })

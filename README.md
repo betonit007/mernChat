@@ -21,7 +21,7 @@ WhatsApp Messenger is a browswer-based instant messaging application that allows
 #### Technologies
 
 - MERN Stack - Mongo, Express, React and Node.js
-- Pusher - a hosted service that adds real-time data and functionality web and mobile applications
+- Pusher - a hosted service that adds real-time data functionality to web and mobile applications
 - Cloudinary - a cloud service for managing and storing images
 
 [Back To The Top](#Mernchat-Messenger)

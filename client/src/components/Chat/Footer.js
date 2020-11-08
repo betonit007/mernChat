@@ -21,12 +21,16 @@ const Footer = () => {
 
     const messageInputRef = useRef(null)
 
+    const returnToInput = () => {
+        messageInputRef.current.focus()
+    }
+
     const handleInput = e => {
         setInput({
             ...input,
             [e.target.name]: e.target.value
         })
-        messageInputRef.current.focus()
+        returnToInput()
     }
 
     const handleMessage = e => {
@@ -44,7 +48,7 @@ const Footer = () => {
             ...input,
             message: emojiTextCombined
         })
-        messageInputRef.current.focus()
+        returnToInput()
 
     }
 
@@ -53,7 +57,10 @@ const Footer = () => {
             onClick={!currentRoom ? () => setToast('warning', "Please select a room..") : undefined}
             className="chatFooter__container"
         >
-            <ImageContainer input={input} />
+            <ImageContainer 
+              input={input} 
+              setInput={setInput}
+              />
             <div className='chat__footer'>
                 <button
                     className="emoji-display-button"
@@ -76,7 +83,13 @@ const Footer = () => {
                         Send a message
                </button>
                 </form>
-                <ChatAddImage currentRoom={currentRoom} setInput={setInput} input={input} />
+                <ChatAddImage 
+                  currentRoom={currentRoom} 
+                  setInput={setInput} 
+                  input={input}
+                  returnToInput={returnToInput}
+                  setToast={setToast}
+                />
                 {/* <Mic /> */}
             </div>
             <div className={`chat__emoji-container ${showEmoji ? 'show-emojis' : 'shrink-emojis'}`}>
