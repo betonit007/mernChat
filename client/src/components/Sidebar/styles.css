@@ -7,11 +7,11 @@
 }
 
 .fadeIn {
-    animation: slide-in 0.3s linear 0.3s both;
+    animation: slide-in linear 0.3s both;
 }
 
 .fadeOut {
-    animation: slide-out .3s linear .3s both;
+    animation: slide-out linear .3s both;
 }
 
 .sidebar__toggle {

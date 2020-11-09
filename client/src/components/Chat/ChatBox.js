@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { formatRelative } from "date-fns";
 
 const ChatBox = ({ chatInfo: { message, name, timestamp, userId, pic }, user }) => {
+
+    const [ picSize, toggleSize ] = useState(true)
 
     const userChat = userId === user?._id || false
 
@@ -11,7 +13,8 @@ const ChatBox = ({ chatInfo: { message, name, timestamp, userId, pic }, user }) 
             <span className='chat__name' >{!userChat && name}</span>
             {pic.length ? pic.map(pic =>
                 <img
-                    className={userChat && "push-imageRight"}
+                    onClick={()=>toggleSize(!picSize)}
+                    className={`${userChat && "push-imageRight"} ${picSize ? "small" : "expand"}` }
                     src={pic.photoUrl}
                     key={pic.public_id}
                     alt=""
