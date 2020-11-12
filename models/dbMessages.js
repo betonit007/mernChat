@@ -16,7 +16,10 @@ const mernChatSchema = new Schema({
     },
     userId: Schema.Types.ObjectId,
     roomId: Schema.Types.ObjectId,
-    photo: String
+    photo: {
+        type: String,
+        default: ""
+    }
 })
 
 module.exports = mongoose.model("MernChat", mernChatSchema)

@@ -49,7 +49,7 @@ router.get("/:id", async (req, res) => {
 
 router.post("/new", auth, async (req, res) => {
 
-    const { message, name, roomId, userId, pic } = req.body
+    const { message, name, roomId, userId, pic, photo } = req.body
     
     try {
         const { _id } = await MernChat.create(
@@ -58,7 +58,8 @@ router.post("/new", auth, async (req, res) => {
                 pic,
                 name,
                 userId,
-                roomId: roomId.id
+                roomId: roomId.id,
+                photo
             }
         )
         //Push new room to rooms array and update lastUpdate with current time / date

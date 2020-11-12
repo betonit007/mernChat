@@ -28,7 +28,7 @@ const ChatState = props => {
         setChatsLoading()
         try {
             const { data: [chats] } = await axios.get(`api/chats/populate/${id}`)
-            
+            console.log(chats)
             dispatch({
                 type: GET_CHATS,
                 payload: { chats, roomInfo : {id, name} }
@@ -98,15 +98,16 @@ const ChatState = props => {
         
         if (!state.currentRoom.id) return
      
-        const { user: { name, _id }, input } = messageInfo
-      
+        const { user, input } = messageInfo
+        console.log(user)
         try {
             await axios.post(`/api/chats/new`, {
                 message: input.message,
-                name,
+                name: user.name,
                 pic: input.pic,
                 roomId: state.currentRoom,
-                userId: _id
+                userId: user._id,
+                photo: user.photoUrl
             })
 
         } catch (error) {

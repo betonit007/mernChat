@@ -47,8 +47,14 @@
 
 .message__container {
     position: relative;
+    display: flex;
     width: fit-content;
     max-width: 75%;
+    margin: 20px 0;
+}
+
+.message__container .MuiAvatar-root {
+  margin-right: 5px;
 }
 
 .message__container img {
@@ -88,7 +94,6 @@
     width: fit-content;
     border-radius: 10px;
     background: #ffffff;
-    margin: 0 0 30px 0;
 }
 
 .chat__message img {
@@ -109,17 +114,15 @@
 } */
 
 .chat__timestamp {
-    position: absolute;
     font-size: xx-small;
     width: max-content;
-    bottom: -12px;
-    margin: 0 5px;
+    padding-right: 5px;
 }
 
 .chat__name {
-    position: absolute;
+    /* position: absolute;
     top: -12px;
-    left: 0;
+    left: 0; */
     margin-left: 5px;
     font-weight: 800;
     font-size: xx-small;

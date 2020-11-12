@@ -5,7 +5,7 @@ import infoIcon from './assets/info.svg'
 import warningIcon from './assets/warning.svg'
 
 export const returnToast = (message, type, title="") => {
-    console.log(message)
+    
     switch (message.type.toLowerCase()) {
         case "success":
             return {

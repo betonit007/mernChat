@@ -6,7 +6,7 @@ export default (state, action) => {
     switch (action.type) {
         case "SET_TOAST":
             const newToast = returnToast(action.payload)
-            console.log(newToast)
+           
             return {
                 ...state,
                 toastList: [...state.toastList, newToast],

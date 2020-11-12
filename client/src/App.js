@@ -21,7 +21,7 @@ const App = () => {
 
     const channel = pusher.subscribe('messages'); //pusher.subscribe("messages") must match pusher.trigger on backend end server to watch for changes.
     channel.bind('inserted', newChat => {
-      console.log('messages', newChat)
+     
       addMessage(newChat)
 
     });
