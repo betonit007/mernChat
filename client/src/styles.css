@@ -44,6 +44,7 @@
 .modal__body {
     border-radius: 5px;
     width: 50%;
+    min-width: 360px;
     background-color: #fff;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
 }
@@ -56,6 +57,12 @@
     background-color: rgba(171, 220, 226, 0.75);
     border-radius: 5px;
     padding: 20px;
+    margin: 10px
+}
+
+.loginRegister-title {
+    margin-top: 30px;
+    font-weight: 300;
 }
 
 .loginRegister__form {
@@ -84,6 +91,46 @@
     margin-top: 5px;
 }
 
+.mernChatLive {
+    width: 100%;
+}
+
+.mernChatLive__container {
+    /* width: 100%; */
+    background-color: #fff;
+    clip-path: polygon(50% 0%, 100% 0, 85% 100%, 15% 100%, 0 0);
+    text-align: center;
+    padding: 10px;
+}
+
+.mernChatLive__container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.mernChatLive__container h4 {
+    letter-spacing: 15px;
+    margin-right: -15px;
+}
+
+.mernChatLive__container h2 {
+    font-size: 60px;
+    letter-spacing: 45px;
+    margin-right: -45px;
+}
+
+.mernChatLive__container h3 {
+    display: inline-block;
+    font-size: 50px;
+    letter-spacing: 20px;
+    background-color: red;
+    color: white;
+    padding: 10px 0px 10px 20px;
+    border: 2px solid gray;
+    border-radius: 5px;
+    
+}
+
 @keyframes transModal {
     from {
         opacity: 0;
@@ -99,5 +146,11 @@
         width: 100vw;
         margin-top: 0;
         border-radius: 0;
+    }
+
+    .mernChatLive__container h2 {
+        font-size: 60px;
+        letter-spacing: 25px;
+        margin-right: -25px;
     }
 }

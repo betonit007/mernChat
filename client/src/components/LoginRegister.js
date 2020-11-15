@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react'
+import MernChatLive from './MernChatLive'
 import { AuthContext } from '../context/auth/authContext'
 import { ToastContext } from '../context/toast/toastContext'
 
@@ -38,7 +39,8 @@ const LoginRegister = () => {
 
     return (
         <div className='loginRegister'>
-            <h2>{loginState ? "Register" : "Login"}</h2>
+            { !loginState && <MernChatLive /> }
+            <h2 className='loginRegister-title'>{loginState ? "Register" : "Login"}</h2>
             <form className='loginRegister__form' onSubmit={handleSubmit}>
                 {loginState &&
                     <input

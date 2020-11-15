@@ -10,7 +10,6 @@ const app = express()
 
 //connect to DB
 connectDB()
-console.log(process.env.NODE_ENV)
 // we can now accept info from req.body and limit incoming file size to 5mb
 app.use(express.json({ extended: false, limit: '5mb' }));
 

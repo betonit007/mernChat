@@ -28,7 +28,7 @@ const ChatState = props => {
         setChatsLoading()
         try {
             const { data: [chats] } = await axios.get(`api/chats/populate/${id}`)
-            console.log(chats)
+            
             dispatch({
                 type: GET_CHATS,
                 payload: { chats, roomInfo : {id, name} }
